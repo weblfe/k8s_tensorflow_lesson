@@ -1,0 +1,11 @@
+version: "3"
+services:
+  app:
+    image: bitnami/tensorflow-serving:latest
+    container_name: tensorflow-serv
+    networks:
+      - tensor
+
+networks:
+  tensor:
+    external: true
