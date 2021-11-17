@@ -1,5 +1,2 @@
-apiVersion: v1
-kind: pod
-meatdata:
-  name:
-    
+apiVersion: apps/v1
+kind: Deployment
