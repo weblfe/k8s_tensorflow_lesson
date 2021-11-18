@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tensor-serv
+  labels:
+    app: tensor-serv
+
+spec:
+  selector:
+    matchLabels:
+      app: tensor-serv
+  template:
+    metadata:
+      labels:
+        app: tensor-serv
+    spec:
+      containers:
+      - name: tensor-serv
+        image: "bitnami/tensorflow-serving:latest"
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 4024Mi

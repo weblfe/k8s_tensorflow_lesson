@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tensor-serv
-  namespace: tensor
   labels:
     app: tensor-serv
 
@@ -19,7 +18,7 @@ spec:
     spec:
       containers:
       - name: tensor-serv
-        image: bitnami/tensorflow-serving:latest
+        image: "bitnami/tensorflow-serving:latest"
         lifecycle:
           preStop:
             exec:
@@ -50,60 +49,3 @@ spec:
         - name: timezone
           hostPath:
             path: /usr/share/zoneinfo/Asia/Shanghai
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: tensor-serv-svc
-  namespace: tensor
-spec:
-  ports:
-    - port: 8080
-  selector:
-    app: tensor-serv
-
----
-
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: tensor-serv-hpa-c
-  namespace: tensor
-  labels:
-    app: tensor-serv-hpa-c
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: tensor-serv
-  minReplicas: 3
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      targetAverageUtilization: 80
-
----
-
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: tensor-serv-hpa-m
-  namespace: tensor
-  labels:
-    app: tensor-serv-hpa-m
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: tensor-serv
-  minReplicas: 3
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: memory
-      targetAverageUtilization: 80
