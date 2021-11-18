@@ -39,7 +39,7 @@ int clone(int (*child_func)(void *), void *child_stack, int flags, void *arg);
 
 说明 : 
 
-的系统调用是`unshare()`，它与`clone()`很像，不同的是，`unshare()`运行在原先的进程上，不需要启动一个新进程。
+实验调用的是系统的`unshare()`，它与`clone()`很像，不同的是，`unshare()`运行在原先的进程上，不需要启动一个新进程。(文件,网络等未隔离,只是进程 PID隔离)
 
 ```shell
 $ ps -ef #unshare 之前
